@@ -3,13 +3,13 @@ version: "3.5"
 services:
   db:
     image: mariadb:10.3
-    container_name: "db"
+    container_name: db
     restart: always
     environment:
       - TZ=Asia/Tokyo
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
     networks:
-      - bot-network
+      - app-network
 
   phpmyadmin:
     image: phpmyadmin
@@ -20,13 +20,12 @@ services:
     environment:
       - TZ=Asia/Tokyo
       - PMA_HOST=db
-      - PWA_USER=root
       - PMA_ARBITRARY=1
     ports: 
       - 8080:80
     networks:
-      - bot-network
+      - app-network
 
 networks:
-  bot-network:
-    name: bot_network
+  app-network:
+    name: app_network
